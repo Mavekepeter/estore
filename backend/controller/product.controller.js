@@ -55,8 +55,8 @@ export const deleteproduct = async(req,res)=>{
         if (!products) {
             return res.status(404).json({message:"product not found"})
         }
-        if (products.image) {
-            const publicId = product.image.split("/").pop().split(".")[0];
+        if (product.image) {
+			const publicId = product.image.split("/").pop().split(".")[0];
             try {
                 await cloudinary.uploader.destroy(`products/${publicId}`)
                 console.log("deleted image from cloudinary");
@@ -97,7 +97,7 @@ export const getProductsByCategory = async(req,res)=>{
     const {category} = req.params;
     try {
         const products = await product.find({category});
-        res.json(products);
+        res.json({products});
     } catch (error) {
         console.log("Error in getProductsByCategory controller",error.message);
         res.status(500).json({message: "server error",error:error.message})
@@ -107,15 +107,15 @@ export const toggleFeaturedProduct = async(req,res)=>{
     try {
         const products = await product.findById(req.params.id);
         if (products) {
-            products.isFeatured = !product.isFeatured;
-            const updatedProduct = await product.save();
+            products.isFeatured = !products.isFeatured;
+            const updatedProduct = await products.save();
             await updateFeaturedProductsCach();
             res.json(updatedProduct);
         }else{
             res.status(400).json({message:"product not found"})
         }
     } catch (error) {
-        console.log("Error in getProductsByCategory controller",error.message);
+        console.log("Error in toggleFeaturedProducts controller",error.message);
         res.status(500).json({message: "server error",error:error.message})
     }
 }
