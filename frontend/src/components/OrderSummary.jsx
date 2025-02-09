@@ -5,8 +5,9 @@ import { MoveRight } from "lucide-react";
 import { loadStripe } from "@stripe/stripe-js";
 import axios from "../lib/axios";
 
+
 const stripePromise = loadStripe(
-	"pk_test_51KZYccCoOZF2UhtOwdXQl3vcizup20zqKqT9hVUIsVzsdBrhqbUI2fE0ZdEVLdZfeHjeyFXtqaNsyCJCmZWnjNZa00PzMAjlcL"
+	"pk_test_51PolD906ZDxSf66IXeqB8tJiRK4vQga1UBBvYWyilgT7CEsO8V2HrK5YEC4fafy4QPTwquLNWmLKdqcQD8wLeDtt00HxnFzAIA"
 );
 
 const OrderSummary = () => {
@@ -33,6 +34,10 @@ const OrderSummary = () => {
 			console.error("Error:", result.error);
 		}
 	};
+	const handleMpesaPayment = async () => {
+		
+	};
+	
 
 	return (
 		<motion.div
@@ -76,6 +81,14 @@ const OrderSummary = () => {
 					onClick={handlePayment}
 				>
 					Proceed to Checkout
+				</motion.button>
+				<motion.button
+					className='flex w-full items-center justify-center rounded-lg bg-emerald-600 px-5 py-2.5 text-sm font-medium text-white hover:bg-emerald-700 focus:outline-none focus:ring-4 focus:ring-emerald-300'
+					whileHover={{ scale: 1.05 }}
+					whileTap={{ scale: 0.95 }}
+					onClick={handleMpesaPayment}
+				>
+					M-pesa
 				</motion.button>
 
 				<div className='flex items-center justify-center gap-2'>
